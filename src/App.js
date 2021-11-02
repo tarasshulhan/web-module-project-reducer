@@ -2,7 +2,7 @@ import React, {useReducer} from 'react';
 import './App.css';
 
 import reducer, { initialState } from './reducers';
-import { applyNumber, changeOperation } from './actions';
+import { applyNumber, changeOperation, clearDisplay, memoryAdd, memoryClear, memoryRead } from './actions';
 
 import TotalDisplay from './components/TotalDisplay';
 import CalcButton from './components/CalcButton';
@@ -16,6 +16,22 @@ function App() {
 
   const handleOperator = e => {
     dispatch(changeOperation(e.target.innerText));
+  };
+
+  const handleClear = e => {
+    dispatch(clearDisplay());
+  };
+
+  const handleMemAdd = e => {
+    dispatch(memoryAdd());
+  };
+
+  const handleMemRead = e => {
+    dispatch(memoryRead());
+  };
+
+  const handleMemClear = e => {
+    dispatch(memoryClear());
   };
 
   return (
@@ -35,9 +51,9 @@ function App() {
             </div>
             
             <div className="row">
-              <CalcButton value={"M+"}/>
-              <CalcButton value={"MR"}/>
-              <CalcButton value={"MC"}/>
+              <CalcButton value={"M+"} onClick={handleMemAdd}/>
+              <CalcButton value={"MR"} onClick={handleMemRead}/>
+              <CalcButton value={"MC"} onClick={handleMemClear}/>
             </div>
 
             <div className="row">
@@ -65,7 +81,7 @@ function App() {
             </div>
 
             <div className="row ce_button">
-              <CalcButton value={"CE"}/>
+              <CalcButton value={"CE"} onClick={handleClear}/>
             </div>
 
           </form>
